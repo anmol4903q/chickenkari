@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+}
+
+/* LEFT SIDE */
+
+.left{
+    width:50%;
+    background: radial-gradient(circle at top left, #3b2a89, #1a0836 60%);
+    position:relative;
+    overflow:hidden;
+    color:white;
+    padding:60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+/* Fake planets */
+
+.planet-big{
+    position:absolute;
+    width:350px;
+    height:350px;
+    background: radial-gradient(circle at 30% 30%, #5fd0ff, #2a5fff);
+    border-radius:50%;
+    top:-100px;
+    left:-100px;
+    opacity:0.9;
+}
+
+.planet-small{
+    position:absolute;
+    width:120px;
+    height:120px;
+    background: radial-gradient(circle at 30% 30%, #a98bff, #4b2fff);
+    border-radius:50%;
+    bottom:120px;
+    right:100px;
+    opacity:0.8;
+}
+
+.tagline{
+    font-size:28px;
+    font-weight:600;
+    z-index:2;
+}
+
+.tagline span{
+    color:#8b5cf6;
+    font-weight:700;
+}
+
+/* RIGHT SIDE */
+
+.right{
+    width:50%;
+    background:#14052c;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:380px;
+    color:white;
+}
+
+.login-box h1{
+    font-size:42px;
+    margin-bottom:30px;
+}
+
+.login-box label{
+    font-size:14px;
+    opacity:0.7;
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:8px;
+    border:none;
+    margin-top:8px;
+    background:#2a164a;
+    color:white;
+    outline:none;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border-radius:8px;
+    border:none;
+    margin-top:15px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.sign-btn{
+    background:linear-gradient(90deg,#8b5cf6,#4f46e5);
+    color:white;
+}
+
+.divider{
+    text-align:center;
+    margin:20px 0;
+    font-size:13px;
+    opacity:0.6;
+}
+
+.social{
+    display:flex;
+    gap:10px;
+}
+
+.social button{
+    flex:1;
+    background:#2a164a;
+    color:white;
+}
+
+.terms{
+    font-size:12px;
+    margin-top:20px;
+    opacity:0.6;
+}
+
+.terms a{
+    color:#8b5cf6;
+    text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="left">
+    <div class="planet-big"></div>
+    <div class="planet-small"></div>
+
+    <div></div>
+
+    <div class="tagline">
+        STEP IN TO THE<br>
+        <span>FASHION WORLD!</span>
+    </div>
+</div>
+
+
+<div class="right">
+    <div class="login-box">
+        <h1>SIGN IN</h1>
+
+        <div class="input-group">
+            <label>Sign in with email address</label>
+            <input type="email" id="email" placeholder="yourname@gmail.com">
+        </div>
+
+        <button class="sign-btn" id="signupBtn">Sign up</button>
+
+        <div class="divider">Or continue with</div>
+
+        <div class="social">
+            <button>Google</button>
+            <button>Facebook</button>
+        </div>
+
+        <div class="terms">
+            By registering you agree with our 
+            <a href="#">Terms and Conditions</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+<script>
+
+document.getElementById("signupBtn").addEventListener("click", function(){
+
+    let email = document.getElementById("email").value;
+
+    if(email === ""){
+        alert("Please enter your email");
+        return;
+    }
+
+    // Simulate account creation
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("isProfileComplete", "false");
+
+    // Redirect to onboarding page
+    window.location.href = "onboarding.html";
+
+});
+
+</script>

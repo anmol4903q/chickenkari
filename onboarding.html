@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Your Profile</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    background: radial-gradient(circle at top left, #3b2a89, #1a0836 60%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.container{
+    width:420px;
+    text-align:center;
+    background:#14052c;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+h2{
+    margin-bottom:30px;
+}
+
+.options{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.option{
+    padding:18px;
+    border-radius:50px;
+    border:2px solid #8b5cf6;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:600;
+}
+
+.option:hover{
+    background:#8b5cf6;
+}
+
+.selected{
+    background:#8b5cf6;
+}
+
+button{
+    margin-top:30px;
+    padding:14px;
+    width:100%;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#8b5cf6,#4f46e5);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    font-size:15px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:none;
+    margin-top:20px;
+    background:#2a164a;
+    color:white;
+    outline:none;
+}
+
+.success-icon{
+    font-size:90px;
+    color:#00ff88;
+    animation:pop 0.6s ease forwards;
+}
+
+@keyframes pop{
+    0%{transform:scale(0);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
+}
+
+.success-text{
+    margin-top:20px;
+    font-size:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- STEP 1 -->
+    <div id="step1">
+        <h2>What's your gender?</h2>
+        <div class="options">
+            <div class="option" onclick="selectOption(this,'gender','Male')">Male</div>
+            <div class="option" onclick="selectOption(this,'gender','Female')">Female</div>
+        </div>
+        <button onclick="nextStep(1)">Next</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" style="display:none;">
+        <h2>Who are you?</h2>
+        <div class="options">
+            <div class="option" onclick="selectOption(this,'role','Labour')">
+                Labour (Upload & Sell Designs)
+            </div>
+            <div class="option" onclick="selectOption(this,'role','Buyer')">
+                Buyer (Shop & Explore)
+            </div>
+            <div class="option" onclick="selectOption(this,'role','Influencer')">
+                Influencer (Share Trends)
+            </div>
+        </div>
+        <button onclick="nextStep(2)">Next</button>
+    </div>
+
+    <!-- STEP 3 (USERNAME IF REQUIRED) -->
+    <div id="step3" style="display:none;">
+        <h2>Create your username</h2>
+        <input type="text" id="username" placeholder="Enter unique username">
+        <button onclick="finish()">Finish</button>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div id="success" style="display:none;">
+        <div class="success-icon">✔</div>
+        <div class="success-text">Profile Created Successfully!</div>
+        <button onclick="enterPlatform()">Enter Fashion World</button>
+    </div>
+
+</div>
+
+<script>
+
+// Prevent skipping onboarding
+if(localStorage.getItem("isProfileComplete") === "true"){
+    window.location.href = "dashboard.html";
+}
+
+let userData = {
+    gender: "",
+    role: "",
+    username: ""
+};
+
+function selectOption(element,type,value){
+    let siblings = element.parentElement.children;
+    for(let i=0;i<siblings.length;i++){
+        siblings[i].classList.remove("selected");
+    }
+    element.classList.add("selected");
+    userData[type] = value;
+}
+
+function nextStep(current){
+
+    if(current === 1){
+        if(userData.gender === ""){
+            alert("Please select your gender");
+            return;
+        }
+        document.getElementById("step1").style.display="none";
+        document.getElementById("step2").style.display="block";
+    }
+
+    else if(current === 2){
+        if(userData.role === ""){
+            alert("Please select your role");
+            return;
+        }
+
+        if(userData.role === "Labour" || userData.role === "Influencer"){
+            document.getElementById("step2").style.display="none";
+            document.getElementById("step3").style.display="block";
+        }
+        else{
+            finish();
+        }
+    }
+}
+
+function finish(){
+
+    if(userData.role === "Labour" || userData.role === "Influencer"){
+        let username = document.getElementById("username").value.trim();
+        if(username === ""){
+            alert("Please enter username");
+            return;
+        }
+        userData.username = username;
+    }
+
+    localStorage.setItem("gender", userData.gender);
+    localStorage.setItem("role", userData.role);
+    localStorage.setItem("username", userData.username);
+    localStorage.setItem("isProfileComplete", "true");
+
+    document.getElementById("step1").style.display="none";
+    document.getElementById("step2").style.display="none";
+    document.getElementById("step3").style.display="none";
+    document.getElementById("success").style.display="block";
+}
+
+function enterPlatform(){
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
