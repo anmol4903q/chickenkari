@@ -15,6 +15,68 @@
     font-family:'Poppins',sans-serif;
 }
 
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-320px;
+    width:320px;
+    height:100%;
+    background:white;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.1);
+    transition:0.3s;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    z-index:2000;
+}
+
+.sidebar.active{
+    right:0;
+}
+
+.sidebar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    border-bottom:1px solid #eee;
+}
+
+.close-btn{
+    cursor:pointer;
+}
+
+.sidebar-content{
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.sidebar-content button{
+    padding:12px;
+    border:none;
+    background:#8b5cf6;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.sidebar-footer{
+    padding:20px;
+    border-top:1px solid #eee;
+    font-size:13px;
+    color:#666;
+}
+
+.sidebar-footer p{
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+
 body{
     background:#f5f5f5;
 }
@@ -59,6 +121,8 @@ body{
     font-size:18px;
     cursor:pointer;
 }
+
+
 
 /* BANNER */
 
@@ -137,6 +201,42 @@ body{
 </style>
 </head>
 
+<script>
+
+// Protect dashboard
+if(localStorage.getItem("isProfileComplete") !== "true"){
+    window.location.href = "onboarding.html";
+}
+
+const role = localStorage.getItem("role");
+const username = localStorage.getItem("username");
+
+// Show username
+if(username){
+    document.getElementById("sidebarUsername").innerText = "Hello, " + username;
+}
+
+// Show creator options
+if(role === "Labour" || role === "Influencer"){
+    document.getElementById("creatorOptions").style.display = "block";
+}
+
+function openSidebar(){
+    document.getElementById("sidebar").classList.add("active");
+}
+
+function closeSidebar(){
+    document.getElementById("sidebar").classList.remove("active");
+}
+
+function logout(){
+    localStorage.clear();
+    window.location.href = "login.html";
+}
+
+</script>
+
+
 <body>
 
 <!-- NAVBAR -->
@@ -156,11 +256,55 @@ body{
     </div>
 
     <div class="icons">
-        <div>👤</div>
-        <div>❤</div>
-        <div>🛒</div>
+    <div class="icons">
+    <div>❤</div>
+    <div>🛒</div>
+    <div onclick="openSidebar()" style="cursor:pointer;">👤</div>
+    
+</div>
+
     </div>
 </div>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <h3 id="sidebarUsername">Hello 👋</h3>
+        <span onclick="closeSidebar()" class="close-btn">✖</span>
+    </div>
+
+    <div class="sidebar-content">
+
+        <button>Edit Profile</button>
+
+        <!-- Creator Only Buttons -->
+        <div id="creatorOptions" style="display:none;">
+            <button>Upload Work</button>
+            <button>View Uploads</button>
+        </div>
+
+        <button onclick="logout()">Logout</button>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+        <p>About Us</p>
+        <p>Privacy Policy</p>
+        <p>Terms & Conditions</p>
+    </div>
+
+</div>
+
+
+<!-- CREATOR PANEL (Hidden by default) -->
+<div id="creatorPanel" style="display:none; padding:20px 40px; background:#fff; border-bottom:1px solid #eee;">
+    <h3>Creator Dashboard</h3>
+    <button onclick="alert('Upload Feature Coming Soon')" style="margin-right:10px;">Upload Work</button>
+    <button onclick="alert('Edit Profile Coming Soon')">Edit Profile</button>
+</div>
+
 
 <!-- BANNER -->
 <div class="banner">
@@ -174,34 +318,42 @@ body{
     <div class="products">
 
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38" alt="">
+            <img src="https://manyavar.scene7.com/is/image/manyavar/8905100857405.34006_16-02-2023-23-22-1?wid=1244" alt="">
             <div class="product-info">
-                <h4>Oversized Hoodie</h4>
+                <h4>Chicken Kurta for men</h4>
                 <div class="price">₹1,299</div>
             </div>
         </div>
 
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1544441893-675973e31985" alt="">
+            <img src="https://i.pinimg.com/474x/2a/ec/2b/2aec2bc2675b0fd62a94c22b898be365.jpg" alt="">
             <div class="product-info">
-                <h4>Classic Sneakers</h4>
+                <h4>Kurta for women</h4>
                 <div class="price">₹2,499</div>
             </div>
         </div>
 
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" alt="">
+            <img src="https://4.imimg.com/data4/VH/LV/MY-29479963/lucknow-chikan-saree-500x500.jpg" alt="">
             <div class="product-info">
-                <h4>Elegant Dress</h4>
-                <div class="price">₹1,999</div>
+                <h4>Chickenkari saree</h4>
+                <div class="price">₹2,999</div>   
             </div>
         </div>
 
         <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd53" alt="">
+            <img src="https://i.etsystatic.com/16387285/r/il/93e352/2550217651/il_fullxfull.2550217651_jrcq.jpg" alt="">
             <div class="product-info">
-                <h4>Denim Jacket</h4>
+                <h4>Chickenkari White Kurta with Dupatta</h4>
                 <div class="price">₹1,799</div>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://dhaagaandco.com/cdn/shop/files/WhatsAppImage2024-12-25at5.01.11PM.jpg?v=1738296486&width=2566" alt="">
+            <div class="product-info">
+                <h4>Chickenkari White lehenga</h4>
+                <div class="price">₹5,999</div>
             </div>
         </div>
 
@@ -211,6 +363,29 @@ body{
 <div class="footer">
     © 2026 FashionHub. All rights reserved.
 </div>
+
+<script>
+
+// Check if profile is complete
+if(localStorage.getItem("isProfileComplete") !== "true"){
+    window.location.href = "onboarding.html";
+}
+
+// Get role from localStorage
+const role = localStorage.getItem("role");
+
+// If user is Labour or Influencer → show creator panel
+if(role === "Labour" || role === "Influencer"){
+    document.getElementById("creatorPanel").style.display = "block";
+}
+
+if(role === "Labour" || role === "Influencer"){
+    document.getElementById("uploadBtn").style.display = "block";
+}
+
+
+</script>
+
 
 </body>
 </html>
