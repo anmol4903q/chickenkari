@@ -3,222 +3,665 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Space Login</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<title>CHIKANcury — Direct from Lucknow's Karigars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ivory: #F7F3EC; --warm-white: #FDFAF5; --earth: #8B5E3C;
+    --deep-earth: #5C3D2E; --clay: #C4844A; --sage: #7A8C6E;
+    --ink: #2A1F14; --muted: #8A7968; --thread: #D4A574;
+    --light-thread: #EDD9C0; --bg-card: #FEFCF8;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--ivory); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: var(--warm-white); border-bottom: 1px solid var(--light-thread); position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--deep-earth); letter-spacing: 0.04em; }
+  .logo span { color: var(--clay); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 400; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; cursor: pointer; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--deep-earth); }
+  .nav-cta { background: var(--deep-earth); color: var(--ivory) !important; padding: 8px 20px; border-radius: 4px; font-size: 13px; cursor: pointer; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--earth) !important; }
 
-body{
-    height:100vh;
-    display:flex;
-}
+  /* PAGES */
+  .page { display: none; animation: fadeIn 0.35s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* LEFT SIDE */
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; align-items: center; padding: 60px 48px; background: var(--warm-white); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; right: 0; top: 0; width: 50%; height: 100%; background: linear-gradient(135deg, #EDD9C0 0%, #C4844A22 100%); z-index: 0; }
+  .hero-left { z-index: 1; padding-right: 60px; }
+  .hero-tag { display: inline-block; background: var(--light-thread); color: var(--deep-earth); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 24px; font-weight: 500; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 6vw, 72px); font-weight: 300; line-height: 1.08; color: var(--ink); margin-bottom: 24px; }
+  .hero h1 em { font-style: italic; color: var(--clay); }
+  .hero p { font-size: 15px; line-height: 1.75; color: var(--muted); max-width: 440px; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--deep-earth); color: var(--ivory); padding: 14px 32px; border: none; border-radius: 4px; font-size: 14px; font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s; }
+  .btn-primary:hover { background: var(--earth); }
+  .btn-outline { background: transparent; color: var(--deep-earth); padding: 14px 32px; border: 1px solid var(--earth); border-radius: 4px; font-size: 14px; font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.04em; transition: all 0.2s; }
+  .btn-outline:hover { background: var(--light-thread); }
+  .hero-right { z-index: 1; display: flex; flex-direction: column; gap: 16px; align-items: flex-end; }
+  .hero-visual { width: 100%; max-width: 380px; background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px; padding: 24px; }
+  .karigar-mini { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .karigar-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--light-thread); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--deep-earth); flex-shrink: 0; }
+  .karigar-info p { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .karigar-info span { font-size: 12px; color: var(--muted); }
+  .product-img-mock { width: 100%; height: 160px; background: linear-gradient(145deg, var(--light-thread), #E8C99A); border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .product-img-mock svg { opacity: 0.5; }
+  .product-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); margin-bottom: 4px; }
+  .price-row { display: flex; justify-content: space-between; align-items: center; }
+  .price-tag { font-size: 18px; font-weight: 500; color: var(--deep-earth); }
+  .price-badge { font-size: 11px; background: #E8F5E0; color: #3B6D11; padding: 4px 10px; border-radius: 3px; }
+  .stats-row { display: flex; gap: 12px; margin-top: 12px; }
+  .stat-chip { flex: 1; text-align: center; background: var(--ivory); border-radius: 4px; padding: 10px 8px; }
+  .stat-chip .num { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--deep-earth); }
+  .stat-chip .lbl { font-size: 10px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
 
-.left{
-    width:50%;
-    background: radial-gradient(circle at top left, #3b2a89, #1a0836 60%);
-    position:relative;
-    overflow:hidden;
-    color:white;
-    padding:60px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-}
+  /* SECTIONS */
+  section { padding: 80px 48px; }
+  .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--clay); margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 48px); font-weight: 400; color: var(--ink); margin-bottom: 16px; line-height: 1.15; }
+  .section-sub { font-size: 15px; color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 48px; }
 
-/* Fake planets */
+  /* IMPACT BAR */
+  .impact-bar { background: var(--deep-earth); padding: 40px 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .impact-item { text-align: center; }
+  .impact-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: var(--thread); }
+  .impact-lbl { font-size: 13px; color: #C4A882; margin-top: 4px; }
 
-.planet-big{
-    position:absolute;
-    width:350px;
-    height:350px;
-    background: radial-gradient(circle at 30% 30%, #5fd0ff, #2a5fff);
-    border-radius:50%;
-    top:-100px;
-    left:-100px;
-    opacity:0.9;
-}
+  /* MARKETPLACE */
+  .filter-bar { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+  .filter-btn { padding: 8px 18px; border: 1px solid var(--light-thread); background: var(--warm-white); border-radius: 3px; font-size: 13px; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--deep-earth); color: var(--ivory); border-color: var(--deep-earth); }
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+  .product-card { background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90,50,20,0.1); }
+  .product-thumb { height: 200px; background: linear-gradient(145deg, var(--light-thread), #D4A574); display: flex; align-items: center; justify-content: center; position: relative; }
+  .product-thumb.v2 { background: linear-gradient(145deg, #DED0C2, #B8956A); }
+  .product-thumb.v3 { background: linear-gradient(145deg, #E2D5C8, #C4844A); }
+  .product-thumb.v4 { background: linear-gradient(145deg, #CDD5C4, #7A8C6E); }
+  .product-thumb.v5 { background: linear-gradient(145deg, #D8C9BE, #A07050); }
+  .product-thumb.v6 { background: linear-gradient(145deg, #E5DDD5, #8B5E3C); }
+  .fair-badge { position: absolute; top: 10px; right: 10px; background: #E8F5E0; color: #3B6D11; font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 2px; letter-spacing: 0.06em; }
+  .product-body { padding: 16px; }
+  .product-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .product-body .artist { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .product-price-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .product-price-row .price { font-size: 17px; font-weight: 500; color: var(--deep-earth); }
+  .product-price-row .cuts { font-size: 11px; color: var(--sage); }
+  .karigar-gets { display: flex; align-items: center; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--light-thread); }
+  .progress-track { flex: 1; height: 4px; background: var(--light-thread); border-radius: 2px; }
+  .progress-fill { height: 100%; background: var(--sage); border-radius: 2px; }
+  .gets-label { font-size: 11px; color: var(--sage); white-space: nowrap; }
 
-.planet-small{
-    position:absolute;
-    width:120px;
-    height:120px;
-    background: radial-gradient(circle at 30% 30%, #a98bff, #4b2fff);
-    border-radius:50%;
-    bottom:120px;
-    right:100px;
-    opacity:0.8;
-}
+  /* AI ESTIMATOR */
+  .estimator-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .estimator-form { background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 10px; padding: 32px; }
+  .form-group { margin-bottom: 22px; }
+  .form-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+  .form-select, .form-input { width: 100%; padding: 11px 14px; background: var(--ivory); border: 1px solid var(--light-thread); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); appearance: none; cursor: pointer; }
+  .form-select:focus, .form-input:focus { outline: none; border-color: var(--earth); }
+  .range-wrap { display: flex; align-items: center; gap: 12px; }
+  .form-range { flex: 1; accent-color: var(--earth); }
+  .estimate-btn { width: 100%; background: var(--deep-earth); color: var(--ivory); padding: 14px; border: none; border-radius: 4px; font-size: 14px; font-family: 'DM Sans', sans-serif; cursor: pointer; letter-spacing: 0.05em; transition: background 0.2s; }
+  .estimate-btn:hover { background: var(--earth); }
+  .result-panel { background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 10px; padding: 32px; }
+  .result-panel h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--ink); margin-bottom: 24px; }
+  .price-display { text-align: center; padding: 28px 0; border-bottom: 1px solid var(--light-thread); margin-bottom: 24px; }
+  .price-display .amount { font-family: 'Cormorant Garamond', serif; font-size: 52px; color: var(--deep-earth); line-height: 1; }
+  .price-display .range { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .breakdown-title { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .breakdown-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--ivory); }
+  .breakdown-item:last-child { border-bottom: none; }
+  .breakdown-item .factor { font-size: 13px; color: var(--ink); }
+  .breakdown-item .factor-val { font-size: 13px; font-weight: 500; color: var(--deep-earth); }
+  .karigar-share-box { background: #E8F5E0; border-radius: 6px; padding: 16px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+  .karigar-share-box .share-lbl { font-size: 13px; color: #3B6D11; }
+  .karigar-share-box .share-pct { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #27500A; font-weight: 600; }
+  .ai-loading { display: none; text-align: center; padding: 40px 0; }
+  .ai-loading p { font-size: 13px; color: var(--muted); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-.tagline{
-    font-size:28px;
-    font-weight:600;
-    z-index:2;
-}
+  /* KARIGAR PROFILE */
+  .profile-header { background: var(--warm-white); border-bottom: 1px solid var(--light-thread); padding: 48px 48px 0; }
+  .profile-top { display: flex; gap: 32px; align-items: flex-end; margin-bottom: 32px; }
+  .profile-avatar { width: 100px; height: 100px; border-radius: 50%; background: var(--light-thread); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--deep-earth); flex-shrink: 0; }
+  .profile-meta h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+  .profile-meta .location { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { font-size: 11px; padding: 4px 12px; border-radius: 3px; font-weight: 500; }
+  .badge-craft { background: var(--light-thread); color: var(--deep-earth); }
+  .badge-verified { background: #E8F5E0; color: #27500A; }
+  .badge-exp { background: #EDE8FF; color: #3C3489; }
+  .profile-tabs { display: flex; }
+  .profile-tab { padding: 12px 24px; font-size: 13px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .profile-tab.active { color: var(--deep-earth); border-bottom-color: var(--deep-earth); }
+  .profile-body { padding: 40px 48px; }
+  .profile-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+  .bio-section h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--ink); margin-bottom: 14px; }
+  .bio-section p { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+  .skills-list { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .skill-tag { padding: 6px 14px; background: var(--ivory); border: 1px solid var(--light-thread); border-radius: 3px; font-size: 12px; color: var(--muted); }
+  .sidebar-card { background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px; padding: 22px; margin-bottom: 16px; }
+  .sidebar-card h4 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--ivory); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row .skey { font-size: 13px; color: var(--muted); }
+  .stat-row .sval { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .products-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+  .product-mini-card { background: var(--ivory); border-radius: 6px; overflow: hidden; cursor: pointer; }
+  .product-mini-thumb { height: 100px; background: linear-gradient(145deg, var(--light-thread), #C4844A); }
+  .product-mini-thumb.b { background: linear-gradient(145deg, #DED0C2, #B8956A); }
+  .product-mini-thumb.c { background: linear-gradient(145deg, #D8C9BE, #A07050); }
+  .product-mini-thumb.d { background: linear-gradient(145deg, #E2D5C8, #7A8C6E); }
+  .product-mini-body { padding: 10px; }
+  .product-mini-body p { font-size: 12px; color: var(--ink); margin-bottom: 3px; }
+  .product-mini-body span { font-size: 12px; font-weight: 500; color: var(--deep-earth); }
 
-.tagline span{
-    color:#8b5cf6;
-    font-weight:700;
-}
+  /* HOW IT WORKS */
+  .mission-hero { background: var(--deep-earth); padding: 80px 48px; color: var(--ivory); }
+  .mission-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 60px); font-weight: 300; line-height: 1.1; max-width: 700px; margin-bottom: 20px; }
+  .mission-hero h1 em { color: var(--thread); font-style: italic; }
+  .mission-hero p { font-size: 16px; color: #C4A882; max-width: 560px; line-height: 1.7; }
+  .problem-section { background: var(--warm-white); padding: 64px 48px; }
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+  .vs-card { padding: 32px; border-radius: 8px; }
+  .vs-old { background: #FFF0E8; border: 1px solid #F5C4B3; }
+  .vs-new { background: #EAF3DE; border: 1px solid #C0DD97; }
+  .vs-card .vs-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 20px; }
+  .vs-old .vs-label { color: #993C1D; }
+  .vs-new .vs-label { color: #3B6D11; }
+  .vs-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; margin-bottom: 16px; }
+  .vs-old h3 { color: #5C3020; }
+  .vs-new h3 { color: #27500A; }
+  .vs-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 14px; align-items: flex-start; }
+  .vs-old .vs-item { color: #7A3820; }
+  .vs-new .vs-item { color: #3B5D20; }
+  .vs-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .vs-old .vs-dot { background: #D85A30; }
+  .vs-new .vs-dot { background: #639922; }
+  .steps-section { padding: 64px 48px; }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+  .step-card { text-align: center; padding: 32px 24px; background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: var(--light-thread); line-height: 1; margin-bottom: 16px; }
+  .step-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); margin-bottom: 10px; }
+  .step-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .cta-section { background: var(--clay); padding: 64px 48px; text-align: center; }
+  .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 44px); color: var(--ivory); margin-bottom: 14px; }
+  .cta-section p { font-size: 15px; color: #F0D4B8; margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-light { background: var(--ivory); color: var(--deep-earth); padding: 14px 32px; border: none; border-radius: 4px; font-size: 14px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
+  .btn-light:hover { background: var(--warm-white); }
+  .btn-ghost { background: transparent; color: var(--ivory); padding: 14px 32px; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; font-size: 14px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
 
-/* RIGHT SIDE */
+  /* FOOTER */
+  footer { background: var(--ink); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; }
+  footer .f-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--thread); }
+  footer p { font-size: 12px; color: #665544; }
 
-.right{
-    width:50%;
-    background:#14052c;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.login-box{
-    width:380px;
-    color:white;
-}
-
-.login-box h1{
-    font-size:42px;
-    margin-bottom:30px;
-}
-
-.login-box label{
-    font-size:14px;
-    opacity:0.7;
-}
-
-.input-group{
-    margin-bottom:20px;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    border-radius:8px;
-    border:none;
-    margin-top:8px;
-    background:#2a164a;
-    color:white;
-    outline:none;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    border-radius:8px;
-    border:none;
-    margin-top:15px;
-    font-weight:600;
-    cursor:pointer;
-}
-
-.sign-btn{
-    background:linear-gradient(90deg,#8b5cf6,#4f46e5);
-    color:white;
-}
-
-.divider{
-    text-align:center;
-    margin:20px 0;
-    font-size:13px;
-    opacity:0.6;
-}
-
-.social{
-    display:flex;
-    gap:10px;
-}
-
-.social button{
-    flex:1;
-    background:#2a164a;
-    color:white;
-}
-
-.terms{
-    font-size:12px;
-    margin-top:20px;
-    opacity:0.6;
-}
-
-.terms a{
-    color:#8b5cf6;
-    text-decoration:none;
-}
-
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero, .estimator-wrap, .profile-grid, .vs-grid, .steps-grid, .impact-bar { grid-template-columns: 1fr; }
+    section, .profile-header, .profile-body { padding: 48px 20px; }
+    .hero { padding: 48px 20px; min-height: auto; }
+    .hero::before { display: none; }
+    .hero-left { padding-right: 0; }
+    .hero-right { display: none; }
+    .mission-hero, .problem-section, .steps-section, .cta-section { padding: 48px 20px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 20px; }
+  }
 </style>
 </head>
-
 <body>
+<div id="app">
+  <nav>
+    <div class="logo">CHIKAN<span>cury</span></div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+      <li><a onclick="showPage('market')" id="nav-market">Marketplace</a></li>
+      <li><a onclick="showPage('profile')" id="nav-profile">Karigar Profile</a></li>
+      <li><a onclick="showPage('how')" id="nav-how">How It Works</a></li>
+    </ul>
+    <a class="nav-links nav-cta" onclick="showPage('market')" style="list-style:none;">Shop Now</a>
+  </nav>
 
-<div class="left">
-    <div class="planet-big"></div>
-    <div class="planet-small"></div>
-
-    <div></div>
-
-    <div class="tagline">
-        STEP IN TO THE<br>
-        <span>FASHION WORLD!</span>
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">Direct from Lucknow's Karigars</div>
+        <h1>Chikankari<br><em>without</em><br>the middleman</h1>
+        <p>Every piece you buy reaches directly to the hands that made it. Fair prices for buyers, fair earnings for artists. No exploitation, no compromise.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('market')">Explore Marketplace</button>
+          <button class="btn-outline" onclick="showPage('how')">Our Mission</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-visual">
+          <div class="karigar-mini">
+            <div class="karigar-avatar">R</div>
+            <div class="karigar-info">
+              <p>Rukhsar Bano</p>
+              <span>Master Karigar · Lucknow</span>
+            </div>
+          </div>
+          <div class="product-img-mock">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="20" stroke="#8B5E3C" stroke-width="1.5" fill="none"/>
+              <circle cx="30" cy="30" r="8" stroke="#8B5E3C" stroke-width="1.5" fill="none"/>
+              <path d="M30 10 Q35 20 30 30 Q25 20 30 10" stroke="#C4844A" stroke-width="1.2" fill="none"/>
+              <path d="M50 30 Q40 35 30 30 Q40 25 50 30" stroke="#C4844A" stroke-width="1.2" fill="none"/>
+              <path d="M30 50 Q25 40 30 30 Q35 40 30 50" stroke="#C4844A" stroke-width="1.2" fill="none"/>
+              <path d="M10 30 Q20 25 30 30 Q20 35 10 30" stroke="#C4844A" stroke-width="1.2" fill="none"/>
+            </svg>
+          </div>
+          <div class="product-name">Mul Mul Kurta</div>
+          <div class="price-row">
+            <div class="price-tag">&#x20B9;2,400</div>
+            <div class="price-badge">AI Fair Priced</div>
+          </div>
+          <div class="stats-row">
+            <div class="stat-chip"><div class="num">85%</div><div class="lbl">Karigar's cut</div></div>
+            <div class="stat-chip"><div class="num">14h</div><div class="lbl">Craft hours</div></div>
+            <div class="stat-chip"><div class="num">4.9</div><div class="lbl">Rating</div></div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
 
-
-<div class="right">
-    <div class="login-box">
-        <h1>SIGN IN</h1>
-
-        <div class="input-group">
-            <label>Sign in with email address</label>
-            <input type="email" id="email" placeholder="yourname@gmail.com">
-        </div>
-
-        <button class="sign-btn" id="signupBtn">Sign up</button>
-
-        <div class="divider">Or continue with</div>
-
-        <div class="social">
-            <button>Google</button>
-            <button>Facebook</button>
-        </div>
-
-        <div class="terms">
-            By registering you agree with our 
-            <a href="#">Terms and Conditions</a>
-        </div>
+    <div class="impact-bar">
+      <div class="impact-item"><div class="impact-num">1,200+</div><div class="impact-lbl">Karigars registered</div></div>
+      <div class="impact-item"><div class="impact-num">&#x20B9;2.4Cr</div><div class="impact-lbl">Paid directly to artists</div></div>
+      <div class="impact-item"><div class="impact-num">80&#x2013;90%</div><div class="impact-lbl">Karigar earnings vs 20&#x2013;30%</div></div>
+      <div class="impact-item"><div class="impact-num">18,000+</div><div class="impact-lbl">Happy customers</div></div>
     </div>
+
+    <section style="background: var(--warm-white);">
+      <div style="text-align: center; max-width: 600px; margin: 0 auto 48px;">
+        <div class="section-label">The system</div>
+        <div class="section-title" style="text-align:center;">Why CHIKANcury<br>is different</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div style="padding: 28px; background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px;">
+          <div style="font-size: 24px; margin-bottom: 14px; color: var(--clay);">&#9670;</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); margin-bottom: 10px;">Zero middlemen</h3>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.7;">Money flows directly from buyer to karigar. Platform takes only a small transparent fee.</p>
+        </div>
+        <div style="padding: 28px; background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px;">
+          <div style="font-size: 24px; margin-bottom: 14px; color: var(--clay);">&#9670;</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); margin-bottom: 10px;">AI fair pricing</h3>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.7;">Our estimator analyses fabric, stitch type, complexity and hours to suggest a fair market rate instantly.</p>
+        </div>
+        <div style="padding: 28px; background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px;">
+          <div style="font-size: 24px; margin-bottom: 14px; color: var(--clay);">&#9670;</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); margin-bottom: 10px;">Full transparency</h3>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.7;">Every product shows exactly what the karigar earns. No hidden margins, no hidden fees.</p>
+        </div>
+        <div style="padding: 28px; background: var(--bg-card); border: 1px solid var(--light-thread); border-radius: 8px;">
+          <div style="font-size: 24px; margin-bottom: 14px; color: var(--clay);">&#9670;</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); margin-bottom: 10px;">Verified karigars</h3>
+          <p style="font-size: 13px; color: var(--muted); line-height: 1.7;">Every artist is verified for craft authenticity. What you see is genuine Lucknowi chikankari.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Featured work</div>
+      <div class="section-title">New arrivals</div>
+      <div class="products-grid">
+        <div class="product-card" onclick="showPage('profile')">
+          <div class="product-thumb"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Mul Mul Anarkali</h3><div class="artist">by Rukhsar Bano</div><div class="product-price-row"><div class="price">&#x20B9;3,800</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div><div class="gets-label">85% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v2"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Shadow Work Dupatta</h3><div class="artist">by Naseema Khatun</div><div class="product-price-row"><div class="price">&#x20B9;1,600</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:82%"></div></div><div class="gets-label">82% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v3"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Chanderi Salwar Suit</h3><div class="artist">by Farida Begum</div><div class="product-price-row"><div class="price">&#x20B9;5,200</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:88%"></div></div><div class="gets-label">88% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v4"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Georgette Saree</h3><div class="artist">by Zubeida Ansari</div><div class="product-price-row"><div class="price">&#x20B9;7,500</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:86%"></div></div><div class="gets-label">86% to karigar</div></div></div>
+        </div>
+      </div>
+    </section>
+    <footer><div class="f-logo">CHIKANcury</div><p>Fair trade for Lucknow's artisans</p><p style="color:#443322; font-size:12px;">&#169; 2025 CHIKANcury. Built with purpose.</p></footer>
+  </div>
+
+  <!-- MARKETPLACE PAGE -->
+  <div id="page-market" class="page">
+    <section>
+      <div class="section-label">Marketplace</div>
+      <div class="section-title">Shop directly from karigars</div>
+      <div class="section-sub">Every item listed here is made by hand. Every rupee you pay reaches the artist.</div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter(this)">All work</button>
+        <button class="filter-btn" onclick="setFilter(this)">Kurtas</button>
+        <button class="filter-btn" onclick="setFilter(this)">Sarees</button>
+        <button class="filter-btn" onclick="setFilter(this)">Dupattas</button>
+        <button class="filter-btn" onclick="setFilter(this)">Suits</button>
+        <button class="filter-btn" onclick="setFilter(this)">Home Decor</button>
+        <button class="filter-btn" onclick="setFilter(this)">Shadow Work</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card" onclick="showPage('profile')">
+          <div class="product-thumb"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Mul Mul Anarkali</h3><div class="artist">Rukhsar Bano &middot; 14h work</div><div class="product-price-row"><div class="price">&#x20B9;3,800</div><div class="cuts">Murri + Phanda</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div><div class="gets-label">85% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v2"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Shadow Work Dupatta</h3><div class="artist">Naseema Khatun &middot; 8h work</div><div class="product-price-row"><div class="price">&#x20B9;1,600</div><div class="cuts">Jaali work</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:82%"></div></div><div class="gets-label">82% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v3"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Chanderi Salwar Suit</h3><div class="artist">Farida Begum &middot; 22h work</div><div class="product-price-row"><div class="price">&#x20B9;5,200</div><div class="cuts">Bakhiya + Katao</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:88%"></div></div><div class="gets-label">88% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v4"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Georgette Saree</h3><div class="artist">Zubeida Ansari &middot; 30h work</div><div class="product-price-row"><div class="price">&#x20B9;7,500</div><div class="cuts">All-over Phanda</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:86%"></div></div><div class="gets-label">86% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v5"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Cotton Kurta Pyjama</h3><div class="artist">Irfan Ustad &middot; 10h work</div><div class="product-price-row"><div class="price">&#x20B9;2,200</div><div class="cuts">Murri stitch</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:83%"></div></div><div class="gets-label">83% to karigar</div></div></div>
+        </div>
+        <div class="product-card">
+          <div class="product-thumb v6"><div class="fair-badge">AI PRICED</div></div>
+          <div class="product-body"><h3>Chikan Bedcover Set</h3><div class="artist">Shabana Parveen &middot; 40h work</div><div class="product-price-row"><div class="price">&#x20B9;9,800</div><div class="cuts">Tepchi + Jali</div></div><div class="karigar-gets"><div class="progress-track"><div class="progress-fill" style="width:89%"></div></div><div class="gets-label">89% to karigar</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI ESTIMATOR -->
+    <section style="background: var(--warm-white);">
+      <div class="section-label">For karigars</div>
+      <div class="section-title">AI fair price estimator</div>
+      <div class="section-sub">Tell us about your piece. Our AI analyses fabric, stitch type, complexity and hours to suggest a fair market price so you never undersell your work again.</div>
+      <div class="estimator-wrap">
+        <div class="estimator-form">
+          <div class="form-group">
+            <label class="form-label">Fabric type</label>
+            <select class="form-select" id="fabric">
+              <option value="mul">Mul Mul (Cotton) &#8212; everyday wear</option>
+              <option value="chanderi">Chanderi &#8212; semi-formal</option>
+              <option value="georgette">Georgette &#8212; premium drape</option>
+              <option value="silk">Pure Silk &#8212; luxury</option>
+              <option value="organza">Organza &#8212; bridal / heavy</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stitch type</label>
+            <select class="form-select" id="stitch">
+              <option value="murri">Murri &#8212; basic seed stitch</option>
+              <option value="phanda">Phanda &#8212; round filling</option>
+              <option value="bakhiya">Bakhiya &#8212; shadow work</option>
+              <option value="jaali">Jaali &#8212; intricate cut-work</option>
+              <option value="katao">Katao &#8212; appliqué cut-work</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Garment type</label>
+            <select class="form-select" id="garment">
+              <option value="kurta">Kurta</option>
+              <option value="dupatta">Dupatta / Stole</option>
+              <option value="saree">Saree</option>
+              <option value="suit">Full Salwar Suit</option>
+              <option value="anarkali">Anarkali</option>
+              <option value="decor">Home Decor piece</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hours of work: <span id="hours-display">12</span>h</label>
+            <div class="range-wrap">
+              <input type="range" class="form-range" id="hours" min="2" max="80" value="12" step="1" oninput="document.getElementById('hours-display').innerText=this.value">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Design coverage</label>
+            <select class="form-select" id="coverage">
+              <option value="minimal">Minimal &#8212; borders only</option>
+              <option value="medium" selected>Medium &#8212; partial all-over</option>
+              <option value="dense">Dense &#8212; full all-over work</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Karigar skill tier</label>
+            <select class="form-select" id="tier">
+              <option value="beginner">Learning karigar (1&#8211;3 yrs)</option>
+              <option value="skilled" selected>Skilled karigar (4&#8211;10 yrs)</option>
+              <option value="master">Master karigar (10+ yrs)</option>
+            </select>
+          </div>
+          <button class="estimate-btn" onclick="estimatePrice()">Get AI fair price estimate</button>
+        </div>
+        <div class="result-panel">
+          <h3>Fair price estimate</h3>
+          <div id="ai-loading" class="ai-loading"><p>Analysing your craft details...</p></div>
+          <div id="result-content">
+            <div class="price-display">
+              <div class="amount" id="price-amount">&#x20B9;2,400</div>
+              <div class="range" id="price-range">Suggested range: &#x20B9;2,100 &#8211; &#x20B9;2,700</div>
+            </div>
+            <div class="breakdown-title">How we calculated this</div>
+            <div class="breakdown-item"><span class="factor">Base fabric cost</span><span class="factor-val" id="bd-fabric">&#x20B9;380</span></div>
+            <div class="breakdown-item"><span class="factor">Labour (hours &times; rate)</span><span class="factor-val" id="bd-labour">&#x20B9;1,200</span></div>
+            <div class="breakdown-item"><span class="factor">Stitch complexity premium</span><span class="factor-val" id="bd-stitch">&#x20B9;480</span></div>
+            <div class="breakdown-item"><span class="factor">Coverage multiplier</span><span class="factor-val" id="bd-coverage">&times;1.2</span></div>
+            <div class="breakdown-item"><span class="factor">Skill tier premium</span><span class="factor-val" id="bd-tier">&#x20B9;340</span></div>
+            <div class="karigar-share-box">
+              <div>
+                <div class="share-lbl">You receive (after 10% platform fee)</div>
+                <div style="font-size: 12px; color: #3B6D11; margin-top: 4px;">Direct to your account in 24h</div>
+              </div>
+              <div class="share-pct" id="karigar-earn">&#x20B9;2,160</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer><div class="f-logo">CHIKANcury</div><p>Fair trade for Lucknow's artisans</p><p style="color:#443322; font-size:12px;">&#169; 2025 CHIKANcury</p></footer>
+  </div>
+
+  <!-- KARIGAR PROFILE PAGE -->
+  <div id="page-profile" class="page">
+    <div class="profile-header">
+      <div class="profile-top">
+        <div class="profile-avatar">R</div>
+        <div class="profile-meta">
+          <h2>Rukhsar Bano</h2>
+          <div class="location">Aminabad, Lucknow, Uttar Pradesh</div>
+          <div class="badge-row">
+            <span class="badge badge-verified">Verified karigar</span>
+            <span class="badge badge-craft">Murri &amp; Phanda specialist</span>
+            <span class="badge badge-exp">18 years experience</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-tabs">
+        <div class="profile-tab active">Products</div>
+        <div class="profile-tab">About</div>
+        <div class="profile-tab">Reviews</div>
+      </div>
+    </div>
+    <div class="profile-body">
+      <div class="profile-grid">
+        <div class="bio-section">
+          <h3>Rukhsar's story</h3>
+          <p>Rukhsar learned chikankari at age 11 from her grandmother in the lanes of Aminabad. For nearly two decades she supplied her work to local dalals, earning &#x20B9;300&#8211;&#x20B9;400 for pieces that sold for &#x20B9;2,000 in Hazratganj. Since joining CHIKANcury, she earns 85% of every sale &#8212; directly, within 24 hours.</p>
+          <p>Her speciality is the Murri stitch, a raised peppercorn-like knot that requires extreme precision. She can work 300+ Murri stitches per hour &#8212; a pace few karigars match.</p>
+          <div class="skills-list">
+            <span class="skill-tag">Murri stitch</span><span class="skill-tag">Phanda</span><span class="skill-tag">Bakhiya</span><span class="skill-tag">Mul Mul</span><span class="skill-tag">Chanderi</span><span class="skill-tag">Georgette</span><span class="skill-tag">All-over work</span>
+          </div>
+          <h3>Her work</h3>
+          <div class="products-mini">
+            <div class="product-mini-card"><div class="product-mini-thumb"></div><div class="product-mini-body"><p>Mul Mul Anarkali</p><span>&#x20B9;3,800</span></div></div>
+            <div class="product-mini-card"><div class="product-mini-thumb b"></div><div class="product-mini-body"><p>Chanderi Kurta</p><span>&#x20B9;2,600</span></div></div>
+            <div class="product-mini-card"><div class="product-mini-thumb c"></div><div class="product-mini-body"><p>Murri Dupatta</p><span>&#x20B9;1,800</span></div></div>
+            <div class="product-mini-card"><div class="product-mini-thumb d"></div><div class="product-mini-body"><p>Shadow Suit</p><span>&#x20B9;4,400</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="sidebar-card">
+            <h4>Karigar stats</h4>
+            <div class="stat-row"><span class="skey">Total sales</span><span class="sval">&#x20B9;3.8 lakh</span></div>
+            <div class="stat-row"><span class="skey">Pieces sold</span><span class="sval">142</span></div>
+            <div class="stat-row"><span class="skey">Avg earning / piece</span><span class="sval">&#x20B9;2,676</span></div>
+            <div class="stat-row"><span class="skey">Rating</span><span class="sval">4.9 / 5</span></div>
+            <div class="stat-row"><span class="skey">Orders in progress</span><span class="sval">3</span></div>
+            <div class="stat-row"><span class="skey">Member since</span><span class="sval">Jan 2023</span></div>
+          </div>
+          <div class="sidebar-card">
+            <h4>Earnings breakdown</h4>
+            <div style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;"><span style="color: var(--muted);">Karigar's share</span><span style="font-weight: 500; color: var(--sage);">85%</span></div>
+              <div style="height: 8px; background: var(--light-thread); border-radius: 4px;"><div style="height: 100%; width: 85%; background: var(--sage); border-radius: 4px;"></div></div>
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;"><span style="color: var(--muted);">Platform fee</span><span style="font-weight: 500; color: var(--muted);">10%</span></div>
+              <div style="height: 8px; background: var(--light-thread); border-radius: 4px;"><div style="height: 100%; width: 10%; background: var(--muted); border-radius: 4px;"></div></div>
+            </div>
+            <p style="font-size: 11px; color: var(--muted); margin-top: 14px;">Compare: traditional system paid 20&#8211;30% of final sale price.</p>
+          </div>
+          <div class="sidebar-card">
+            <h4>Reviews</h4>
+            <div style="margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--ivory);">
+              <div style="font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px;">Priya M., Delhi</div>
+              <div style="font-size: 13px; color: var(--muted); line-height: 1.6;">"The Murri work is extraordinary. You can feel the hours of precision in every stitch."</div>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px;">Aisha K., Mumbai</div>
+              <div style="font-size: 13px; color: var(--muted); line-height: 1.6;">"Bought a saree for my daughter's wedding. Pure artistry, directly delivered."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer><div class="f-logo">CHIKANcury</div><p>Fair trade for Lucknow's artisans</p><p style="color:#443322; font-size:12px;">&#169; 2025 CHIKANcury</p></footer>
+  </div>
+
+  <!-- HOW IT WORKS PAGE -->
+  <div id="page-how" class="page">
+    <div class="mission-hero">
+      <h1>The <em>middleman</em><br>kept 70&#8211;80%.<br>We gave it back.</h1>
+      <p>Chikankari is one of India's oldest embroidery traditions. For decades the karigars who kept it alive earned a fraction of what their work was worth. CHIKANcury exists to fix that &#8212; permanently.</p>
+    </div>
+    <div class="problem-section">
+      <div style="text-align: center; margin-bottom: 8px;" class="section-label">The problem we solved</div>
+      <div class="section-title" style="text-align:center; margin-bottom: 0;">Old system vs CHIKANcury</div>
+      <div class="vs-grid">
+        <div class="vs-card vs-old">
+          <div class="vs-label">The old way</div>
+          <h3>Karigar earns &#x20B9;300<br>on a &#x20B9;2,000 piece</h3>
+          <div class="vs-item"><div class="vs-dot"></div><span>Karigar sells to local dalal for &#x20B9;300&#8211;&#x20B9;400</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Dalal sells to wholesaler for &#x20B9;600&#8211;&#x20B9;800</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Wholesaler marks up to &#x20B9;1,200&#8211;&#x20B9;1,500</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Retailer sells to customer for &#x20B9;2,000&#8211;&#x20B9;3,000</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Karigar received 15&#8211;20% of final value</span></div>
+        </div>
+        <div class="vs-card vs-new">
+          <div class="vs-label">The CHIKANcury way</div>
+          <h3>Karigar earns &#x20B9;1,800<br>on the same piece</h3>
+          <div class="vs-item"><div class="vs-dot"></div><span>AI estimator sets a fair price: &#x20B9;2,000</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Customer pays &#x20B9;2,000 directly</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Platform takes 10% transparent fee: &#x20B9;200</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Karigar receives &#x20B9;1,800 within 24 hours</span></div>
+          <div class="vs-item"><div class="vs-dot"></div><span>Karigar receives 85&#8211;90% of final value</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="steps-section">
+      <div class="section-label">For karigars</div>
+      <div class="section-title">How to start selling</div>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">01</div><h3>Register &amp; verify</h3><p>Sign up with your Aadhaar, share photos of your craft. Verification takes 48 hours. No cost, no gatekeeping.</p></div>
+        <div class="step-card"><div class="step-num">02</div><h3>Price with AI</h3><p>Use our estimator to get a fair price for each piece. Input fabric, stitch type, hours worked. AI does the rest.</p></div>
+        <div class="step-card"><div class="step-num">03</div><h3>List &amp; earn</h3><p>Upload photos, set your price, go live. Payment reaches your bank within 24 hours of every sale.</p></div>
+      </div>
+      <div class="steps-grid" style="margin-top: 24px;">
+        <div class="step-card"><div class="step-num">01</div><h3>Browse authentically</h3><p>Every product shows the karigar's name, location, and the exact stitch types used. No anonymous mass production.</p></div>
+        <div class="step-card"><div class="step-num">02</div><h3>See their earnings</h3><p>Each product card shows what percentage reaches the karigar. You know exactly what your purchase means.</p></div>
+        <div class="step-card"><div class="step-num">03</div><h3>Buy with purpose</h3><p>Checkout is direct. No middlemen taking a cut. Your money goes to the hands that made the piece.</p></div>
+      </div>
+      <div style="text-align: center; margin-top: 12px; font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;">Steps 1&#8211;3 above are for buyers</div>
+    </div>
+    <div class="cta-section">
+      <h2>This is not charity.<br>It's what fair trade looks like.</h2>
+      <p>Karigars don't need pity. They need a market that pays them what their skill is worth. Join the platform that does exactly that.</p>
+      <div class="cta-btns">
+        <button class="btn-light" onclick="showPage('market')">Shop the marketplace</button>
+        <button class="btn-ghost" onclick="showPage('market')">Register as karigar</button>
+      </div>
+    </div>
+    <footer><div class="f-logo">CHIKANcury</div><p>Fair trade for Lucknow's artisans</p><p style="color:#443322; font-size:12px;">&#169; 2025 CHIKANcury</p></footer>
+  </div>
 </div>
-
-</body>
-</html>
-
 
 <script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    const navEl = document.getElementById('nav-' + name);
+    if (navEl) navEl.classList.add('active');
+    window.scrollTo(0, 0);
+  }
 
-document.getElementById("signupBtn").addEventListener("click", function(){
+  function setFilter(btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
 
-    let email = document.getElementById("email").value;
+  const fabricBase  = { mul: 180, chanderi: 340, georgette: 520, silk: 900, organza: 750 };
+  const stitchMult  = { murri: 1.0, phanda: 1.15, bakhiya: 1.2, jaali: 1.5, katao: 1.6 };
+  const garmentBase = { kurta: 1.0, dupatta: 0.6, saree: 1.8, suit: 1.6, anarkali: 1.4, decor: 1.1 };
+  const coverageMult = { minimal: 1.0, medium: 1.2, dense: 1.55 };
+  const tierRate    = { beginner: 90, skilled: 130, master: 180 };
+  const tierBonus   = { beginner: 0, skilled: 0.08, master: 0.18 };
 
-    if(email === ""){
-        alert("Please enter your email");
-        return;
-    }
+  function estimatePrice() {
+    const fabric   = document.getElementById('fabric').value;
+    const stitch   = document.getElementById('stitch').value;
+    const garment  = document.getElementById('garment').value;
+    const hours    = parseInt(document.getElementById('hours').value);
+    const coverage = document.getElementById('coverage').value;
+    const tier     = document.getElementById('tier').value;
 
-    // Simulate account creation
-    localStorage.setItem("userEmail", email);
-    localStorage.setItem("isProfileComplete", "false");
+    document.getElementById('ai-loading').style.display = 'block';
+    document.getElementById('result-content').style.display = 'none';
 
-    // Redirect to onboarding page
-    window.location.href = "onboarding.html";
+    setTimeout(() => {
+      const fbCost       = Math.round(fabricBase[fabric] * garmentBase[garment]);
+      const labour       = Math.round(hours * tierRate[tier]);
+      const stitchPrem   = Math.round(fbCost * (stitchMult[stitch] - 1) * 2.5 + labour * (stitchMult[stitch] - 1));
+      const subtotal     = fbCost + labour + stitchPrem;
+      const covMult      = coverageMult[coverage];
+      const tierBonus_   = Math.round(subtotal * tierBonus[tier]);
+      const total        = Math.round((subtotal + tierBonus_) * covMult);
+      const karigarEarns = Math.round(total * 0.9);
+      const lo           = Math.round(total * 0.88);
+      const hi           = Math.round(total * 1.12);
 
-});
+      document.getElementById('price-amount').innerText  = '₹' + total.toLocaleString('en-IN');
+      document.getElementById('price-range').innerText   = 'Suggested range: ₹' + lo.toLocaleString('en-IN') + ' – ₹' + hi.toLocaleString('en-IN');
+      document.getElementById('bd-fabric').innerText     = '₹' + fbCost.toLocaleString('en-IN');
+      document.getElementById('bd-labour').innerText     = '₹' + labour.toLocaleString('en-IN');
+      document.getElementById('bd-stitch').innerText     = '₹' + stitchPrem.toLocaleString('en-IN');
+      document.getElementById('bd-coverage').innerText   = '×' + covMult.toFixed(2);
+      document.getElementById('bd-tier').innerText       = '₹' + tierBonus_.toLocaleString('en-IN');
+      document.getElementById('karigar-earn').innerText  = '₹' + karigarEarns.toLocaleString('en-IN');
 
+      document.getElementById('ai-loading').style.display  = 'none';
+      document.getElementById('result-content').style.display = 'block';
+    }, 1400);
+  }
 </script>
+</body>
+</html>
